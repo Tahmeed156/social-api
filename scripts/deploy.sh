@@ -3,7 +3,7 @@ set -xe
 
 set -o nounset
 
-BUCKET_NAME=buet-hackathon-workshop-demo-bucket
+BUCKET_NAME=$1
 build_dir=build
 
 latest_build=`aws s3 ls $BUCKET_NAME/$build_dir/ | sort | tail -n 1 | tr -s ' ' | cut -d ' ' -f 4`
@@ -30,8 +30,10 @@ pip install -r requirements.txt
 python manage.py migrate
 
 echo "Starting App:"
+# Not ideal at all. But you get the idea !!. Do it properly for the type of application you are deploying.
 killall gunicorn || true
 gunicorn -b 0.0.0.0:8000 social.wsgi --daemon
+sudo systemctl nginx restart
 
 echo "Cleaning up:"
 cd ..
