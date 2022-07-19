@@ -6,7 +6,7 @@ from api.models import Post, Comment
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'is_staff']
+        fields = ['id', 'username', 'email', 'is_staff']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
